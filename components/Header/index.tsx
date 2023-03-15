@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import PaddingContainer from "../PaddingContainer";
+import SearchBar from "../SearchBar";
+import shopeeLogo from '../../public/download.png'
 
 const Container = styled.div`
   width: 100%;
@@ -8,15 +10,21 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  padding-left: 150x;
-  padding-right: 150px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+`;
+
+const Logo = styled.img`
+  width: 150px;
 `;
 
 const Header = () => {
   return (
     <Container>
       <PaddingContainer>
-        <h1>Header</h1>
+        <Logo src={shopeeLogo.src} />
+        <SearchBar />
       </PaddingContainer>
     </Container>
   );
