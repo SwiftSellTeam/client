@@ -13,13 +13,11 @@ const Body = styled.div`
   padding-bottom: 50px;
 `;
 
-const Layout: React.FC<Props> = ({ children = null }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <Body>
-        <PaddingContainer>{children}</PaddingContainer>
-      </Body>
+      <Body>{children}</Body>
       <Footer />
     </>
   );

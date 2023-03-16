@@ -5,14 +5,14 @@ interface Props {
   left?: number;
 }
 
-const PaddingContainer: React.FC<Props> = ({ children, style, right = 200, left = 200 }) => {
+const PaddingContainer: React.FC<Props> = ({ children, style, right = 160, left = 160 }) => {
   return (
     <div
       style={{
-        paddingRight: `${right}px"`,
+        paddingRight: `${right}px`,
         paddingLeft: `${left}px`,
         width: "100%",
-        background: "red",
+        height: "100%",
         ...style,
       }}
     >
