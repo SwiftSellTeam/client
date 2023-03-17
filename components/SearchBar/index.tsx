@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SuggestionItem from "./suggestionItem";
+import searchIcon from "../../public/icon/search.png";
 
 const Container = styled.div`
   width: 70%;
@@ -16,6 +17,13 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   padding: 0px 15% 0px 10px;
+  border: 1px solid rgba(23, 73, 77, 0.3);
+  cursor: pointer;
+  transition: box-shadow 0.1s ease, border 0.1s ease;
+  &:focus {
+    border: 1px solid rgba(23, 73, 77, 0.6);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 const Suggestion = styled.div`
@@ -50,9 +58,9 @@ const SearchBTN = styled.button`
   position: absolute;
   right: 5px;
   height: 35px;
-  width: 10%;
+  width: 5%;
   cursor: pointer;
-  background: #ee4d2d;
+  background: white;
   border: none;
   outline: none;
   border-radius: 2px;
@@ -88,11 +96,11 @@ const SearchBar = () => {
   const router = useRouter();
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
-    Add("keyword", suggestion.keyword.toLowerCase(), false);
+    Add("keyword", suggestion.keyword.toLowerCase(), 'single');
   };
 
   const onSubmit = (e: any) => {
-    Add("keyword", searchText, false);
+    Add("keyword", searchText, 'single');
     e.preventDefault();
   };
 
@@ -142,7 +150,9 @@ const SearchBar = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <SearchBTN>Search</SearchBTN>
+        <SearchBTN>
+          <img src={searchIcon.src} />
+        </SearchBTN>
       </Form>
       {similarKeywords.length > 0 && isShowSearchBar && (
         <Suggestion>

@@ -31,7 +31,8 @@ const Container = styled.div<ContainerPropsType>`
 
 const Header = styled.div`
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+  font-size: 15px;
 `;
 
 const CheckboxItem = styled.div`
@@ -40,16 +41,22 @@ const CheckboxItem = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Checkbox = styled.input`
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+  pointer-events: none;
 `;
 
 const ValueText = styled.p`
   padding-left: 10px;
-  font-size: 16px;
+  font-size: 14px;
+  text-transform: capitalize;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 `;
 
 const ShowMoreBTN = styled.button`
@@ -78,7 +85,7 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
 
   const HandleOnClick = (value: string) => {
     if (!selectedValues.includes(value)) {
-      Add(slug, value);
+      Add(slug, value, "mutiple");
     } else {
       Remove(slug, value);
     }
@@ -92,7 +99,7 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
 
   const renderCheckboxItem = (value: string) => {
     return (
-      <CheckboxItem key={value}>
+      <CheckboxItem onClick={() => HandleOnClick(value)} key={value}>
         <Checkbox
           checked={selectedValues.includes(value)}
           onChange={() => HandleOnClick(value)}
@@ -106,7 +113,7 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
   return (
     <>
       {values.length > 4 ? (
-        <Container customHeight={isShowMore ? "auto" : "170px"}>
+        <Container customHeight={isShowMore ? "auto" : "185px"}>
           <Header>{title}</Header>
           {values
             .slice(0, isShowMore ? undefined : 4)

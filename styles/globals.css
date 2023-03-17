@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -8,6 +10,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary-color: #17494D;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -87,12 +90,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-end-rgb));
 }
 
 a {
@@ -104,4 +102,8 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+p, a, h1, h2, h3, input, div {
+  font-family: 'Roboto', sans-serif !important;
 }

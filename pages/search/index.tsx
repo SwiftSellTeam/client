@@ -10,7 +10,6 @@ import Loading from "@/components/Loading";
 
 const Container = styled.div`
   width: 100%;
-  background: pink;
   display: flex;
   flex-flow: row wrap;
 `;
@@ -27,7 +26,7 @@ const Search = () => {
   return (
     <PaddingContainer>
       <Container>
-        <Filters />
+        <Filters $isLoading={loading} />
         <ProductsContainer width="80%">
           {!loading && (
             <>

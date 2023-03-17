@@ -10,6 +10,8 @@ type ConvertFiltersToUrlQueryType = (
   filters: Map<string, Array<string>>
 ) => string;
 
+type FilterType = "mutiple" | "single";
+
 const useFilters = () => {
   const router = useRouter();
   const [filters, setFilters] = useState<Map<string, Array<string>>>(new Map());
@@ -57,7 +59,7 @@ const useFilters = () => {
     return fullQueryString;
   };
 
-  const Add = (slug: string, value: string, isMutiple: boolean = true) => {
+  const Add = (slug: string, value: string, type: FilterType) => {
     let updatedFilters: Map<string, Array<string>> = new Map(
       JSON.parse(JSON.stringify(Array.from(filters)))
     );
@@ -65,11 +67,14 @@ const useFilters = () => {
       const values = [value];
       updatedFilters.set(slug, values);
     } else {
-      if (isMutiple) {
-        updatedFilters.get(slug)?.push(value);
-      } else {
-        const values = [value];
-        updatedFilters.set(slug, values);
+      switch (type) {
+        case "mutiple":
+          updatedFilters.get(slug)?.push(value);
+          break;
+        case "single":
+          const values = [value];
+          updatedFilters.set(slug, values);
+          break;
       }
     }
     setFilters(updatedFilters);

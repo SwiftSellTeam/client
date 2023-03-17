@@ -2,22 +2,39 @@ import useFilters from "@/hooks/useFilters";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Filter, { FilterValueItemType } from "./filter";
+import ReactLoading from "react-loading";
 
 interface FiltersContainerPropsType {
-  width: string;
+  $isLoading: boolean;
 }
 
 const FiltersContainer = styled.div`
   width: 20%;
   padding: 10px;
+  position: relative;
 `;
 
 const Header = styled.div`
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+`;
+
+const BlockPanel = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  cursor: not-allowed;
+  display: flex;
+  padding-top: 100px;
+  justify-content: center;
+  border-radius: 4px;
 `;
 
 const valuesSample: Array<FilterValueItemType> = [
@@ -50,7 +67,7 @@ const valuesSample2: Array<FilterValueItemType> = [
   { text: "test 3", isChecking: true },
 ];
 
-const Filters = () => {
+const Filters: React.FC<FiltersContainerPropsType> = ({ $isLoading }) => {
   const { filters } = useFilters();
   const [filterArr, setFilterArr] = useState([]);
 
@@ -59,6 +76,15 @@ const Filters = () => {
   return (
     <FiltersContainer>
       <Header>Bộ lọc tìm kiếm</Header>
+      {$isLoading && (
+        <BlockPanel>
+          <ReactLoading
+            type="spin"
+            color="var(--primary-color)"
+            width={"20%"}
+          />
+        </BlockPanel>
+      )}
       {filterData.map((filterDataItem) => (
         <Filter
           key={filterDataItem.slug}
