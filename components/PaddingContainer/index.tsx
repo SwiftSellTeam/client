@@ -9,6 +9,7 @@ const PaddingContainer: React.FC<Props> = ({ children, style, right = 140, left 
   return (
     <div
       style={{
+        background: 'white',
         paddingRight: `${right}px`,
         paddingLeft: `${left}px`,
         width: "100%",
