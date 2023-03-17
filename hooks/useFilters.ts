@@ -92,6 +92,7 @@ const useFilters = () => {
   };
 
   useEffect(() => {
+    console.log({ filters });
     const updatedQueryString = convertFiltersToUrlQuery(filters);
     setCurrentQueryString(updatedQueryString);
   }, [filters]);
@@ -102,6 +103,8 @@ const useFilters = () => {
       if (convertedFilters.size > 0) {
         setFilters(convertedFilters);
       }
+    } else {
+      resetAllFilters();
     }
   }, [router, router.query]);
 

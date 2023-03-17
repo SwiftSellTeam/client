@@ -79,8 +79,8 @@ const suggestionSample: Array<SuggestionItemType> = [
 ];
 
 const SearchBar = () => {
-  const { Add, currentQueryString } = useFilters();
-  const [searchText, setSearchText] = useState("");
+  const { Add, currentQueryString, filters } = useFilters();
+  const [searchText, setSearchText] = useState<string>("");
   const [isShowSearchBar, setShowSearchBar] = useState(false);
   const [similarKeywords, setSimilarKeywords] = useState<
     Array<SuggestionItemType>
@@ -109,6 +109,14 @@ const SearchBar = () => {
       setSimilarKeywords([]);
     }
   }, [searchText]);
+
+  useEffect(() => {
+    if (filters.has("keyword")) {
+      setSearchText(filters.get("keyword")![0]);
+    } else {
+      setSearchText("");
+    }
+  }, [filters]);
 
   const GetSimilarKeywords = () => {
     let results: SuggestionItemType[] = [];
