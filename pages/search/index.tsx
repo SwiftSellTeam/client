@@ -20,7 +20,10 @@ const Search = () => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+    const getData = setTimeout(() => {
+      setTimeout(() => setLoading(false), 500);
+    }, 1000);
+    return () => clearTimeout(getData);
   }, [router.query]);
 
   return (
@@ -30,18 +33,11 @@ const Search = () => {
         <ProductsContainer width="80%">
           {!loading && (
             <>
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
-              <ProductItem />
+              {Array(100)
+                .fill(0)
+                .map((_, i) => (
+                  <ProductItem key={i} />
+                ))}
             </>
           )}
           {loading && <Loading />}

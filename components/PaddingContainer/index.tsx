@@ -5,7 +5,7 @@ interface Props {
   left?: number;
 }
 
-const PaddingContainer: React.FC<Props> = ({ children, style, right = 160, left = 160 }) => {
+const PaddingContainer: React.FC<Props> = ({ children, style, right = 140, left = 140 }) => {
   return (
     <div
       style={{

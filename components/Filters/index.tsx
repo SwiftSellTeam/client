@@ -10,7 +10,7 @@ interface FiltersContainerPropsType {
 
 const FiltersContainer = styled.div`
   width: 20%;
-  padding: 10px;
+  padding: 20px;
   position: relative;
 `;
 
@@ -52,7 +52,18 @@ const filterData = [
   {
     slug: "color",
     title: "Màu sắc",
-    values: ["red", "yellow", "blue", "green", "orange"],
+    values: [
+      "red",
+      "yellow",
+      "blue",
+      "green",
+      "orange",
+      "pink",
+      "white",
+      "black",
+      "purple",
+      "navy",
+    ],
   },
   {
     slug: "category",
@@ -76,15 +87,7 @@ const Filters: React.FC<FiltersContainerPropsType> = ({ $isLoading }) => {
   return (
     <FiltersContainer>
       <Header>Bộ lọc tìm kiếm</Header>
-      {$isLoading && (
-        <BlockPanel>
-          <ReactLoading
-            type="spin"
-            color="var(--primary-color)"
-            width={"20%"}
-          />
-        </BlockPanel>
-      )}
+   
       {filterData.map((filterDataItem) => (
         <Filter
           key={filterDataItem.slug}

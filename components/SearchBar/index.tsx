@@ -96,11 +96,11 @@ const SearchBar = () => {
   const router = useRouter();
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
-    Add("keyword", suggestion.keyword.toLowerCase(), 'single');
+    Add("keyword", suggestion.keyword.toLowerCase(), "single");
   };
 
   const onSubmit = (e: any) => {
-    Add("keyword", searchText, 'single');
+    Add("keyword", searchText, "single");
     e.preventDefault();
   };
 
@@ -111,11 +111,14 @@ const SearchBar = () => {
   }, [currentQueryString]);
 
   useEffect(() => {
-    if (searchText.trim().length > 2) {
-      GetSimilarKeywords();
-    } else {
-      setSimilarKeywords([]);
-    }
+    const getData = setTimeout(() => {
+      if (searchText.trim().length > 2) {
+        GetSimilarKeywords();
+      } else {
+        setSimilarKeywords([]);
+      }
+    }, 300);
+    return () => clearTimeout(getData);
   }, [searchText]);
 
   useEffect(() => {
