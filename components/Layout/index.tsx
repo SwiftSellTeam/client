@@ -11,6 +11,7 @@ const Body = styled.div`
   width: 100%;
   padding-top: 150px;
   padding-bottom: 50px;
+  background: white;
 `;
 
 const Layout: React.FC<Props> = ({ children }) => {
