@@ -32,7 +32,8 @@ const Container = styled.div<ContainerPropsType>`
 const Header = styled.div`
   width: 100%;
   padding-bottom: 15px;
-  font-size: 15px;
+  font-size: 16px;
+  color: black;
 `;
 
 const CheckboxItem = styled.div`
@@ -45,8 +46,8 @@ const CheckboxItem = styled.div`
 `;
 
 const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   accent-color: var(--primary-color);
   pointer-events: none;
 `;
@@ -79,6 +80,8 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
             setSelectedValues(_selectedValues);
           }
         }
+      } else {
+        setSelectedValues([]);
       }
     }
   }, [filters, slug]);
@@ -93,7 +96,7 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
 
   useEffect(() => {
     if (currentQueryString != "?" && currentQueryString != "") {
-      router.push(currentQueryString);
+      router.push(currentQueryString, undefined, { scroll: false });
     }
   }, [currentQueryString]);
 

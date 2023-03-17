@@ -12,10 +12,11 @@ interface ContainerPropsType {
 const Container = styled.div<ContainerPropsType>`
   width: ${(props) => props.width};
   align-content: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
   display: flex;
   flex-flow: row wrap;
-  background: white;
+  background: var(--secondary-color);
   padding: 5px 10px;
 `;
 

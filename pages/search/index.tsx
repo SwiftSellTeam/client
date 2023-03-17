@@ -7,11 +7,13 @@ import ProductsContainer from "@/components/ProductsContainer";
 import ProductItem from "@/components/ProductItem";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
+import TopFilters from "@/components/TopFilters";
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-flow: row wrap;
+  min-height: 100vh;
 `;
 
 const Search = () => {
@@ -21,8 +23,8 @@ const Search = () => {
   useEffect(() => {
     setLoading(true);
     const getData = setTimeout(() => {
-      setTimeout(() => setLoading(false), 500);
-    }, 1000);
+      setTimeout(() => setLoading(false), 100);
+    }, 500);
     return () => clearTimeout(getData);
   }, [router.query]);
 
@@ -31,9 +33,10 @@ const Search = () => {
       <Container>
         <Filters $isLoading={loading} />
         <ProductsContainer width="80%">
+          <TopFilters />
           {!loading && (
             <>
-              {Array(100)
+              {Array(20)
                 .fill(0)
                 .map((_, i) => (
                   <ProductItem key={i} />

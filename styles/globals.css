@@ -6,11 +6,12 @@
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
+    color-scheme: light only;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --primary-color: #17494D;
+  --secondary-color: rgba(255, 255, 255, 1);
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -99,11 +100,10 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+ 
 }
 
-p, a, h1, h2, h3, input, div {
+p, a, h1, h2, h3, input, div, button {
+  color: black;
   font-family: 'Roboto', sans-serif !important;
 }

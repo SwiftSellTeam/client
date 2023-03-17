@@ -87,8 +87,13 @@ const useFilters = () => {
     let updateValues: Array<string> | undefined = updatedFilters.get(slug);
     if (updateValues) {
       updateValues = updateValues.filter((uValue) => uValue != value);
-      updatedFilters.set(slug, updateValues);
-      setFilters(updatedFilters);
+      if (updateValues.length > 0) {
+        updatedFilters.set(slug, updateValues);
+        setFilters(updatedFilters);
+      } else {
+        updatedFilters.delete(slug);
+        setFilters(updatedFilters);
+      }
     }
   };
 
@@ -97,7 +102,6 @@ const useFilters = () => {
   };
 
   useEffect(() => {
-    console.log({ filters });
     const updatedQueryString = convertFiltersToUrlQuery(filters);
     setCurrentQueryString(updatedQueryString);
   }, [filters]);

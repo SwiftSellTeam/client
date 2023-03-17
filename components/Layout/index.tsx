@@ -9,9 +9,9 @@ interface Props {
 
 const Body = styled.div`
   width: 100%;
-  padding-top: 150px;
+  padding-top: 50px;
   padding-bottom: 50px;
-  background: white;
+  background: var(--secondary-color);
 `;
 
 const Layout: React.FC<Props> = ({ children }) => {

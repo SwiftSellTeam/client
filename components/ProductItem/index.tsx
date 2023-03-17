@@ -1,3 +1,4 @@
+import { Skeleton } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -5,8 +6,8 @@ interface Props {}
 
 const Container = styled.div`
   position: relative;
-  width: 24%;
-  background: white;
+  width: 19%;
+  background: var(--secondary-color);
   display: flex;
   flex-flow: column wrap;
   height: 300px;
@@ -17,7 +18,7 @@ const Container = styled.div`
   box-sizing: border-box;
   &:hover {
     border-radius: 4px;
-    border: 1.5px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     transform: translate(0, -4px);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
   }
@@ -36,12 +37,11 @@ const HoverButton = styled.button`
   border: none;
   outline: none;
   background: var(--primary-color);
-  color: white;
+  color: var(--secondary-color);
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0px 0px 4px 4px;
   cursor: pointer;
   animation: hover_button_appear 0.2s;
   @keyframes hover_button_appear {

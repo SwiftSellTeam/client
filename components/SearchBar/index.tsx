@@ -16,6 +16,7 @@ const SearchInput = styled.input`
   border-radius: 4px;
   border: none;
   outline: none;
+  background: var(--secondary-color);
   padding: 0px 15% 0px 10px;
   border: 1px solid rgba(23, 73, 77, 0.3);
   cursor: pointer;
@@ -27,15 +28,16 @@ const SearchInput = styled.input`
 `;
 
 const Suggestion = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-flow: column wrap;
-  background: white;
+  background: var(--secondary-color);
   position: absolute;
   animation: scale_suggestion 0.1s;
   transform-origin: top;
   margin-top: 5px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   @keyframes scale_suggestion {
     from {
@@ -60,11 +62,10 @@ const SearchBTN = styled.button`
   height: 35px;
   width: 5%;
   cursor: pointer;
-  background: white;
+  background: var(--secondary-color);
   border: none;
   outline: none;
   border-radius: 2px;
-  color: white;
 `;
 
 export type SuggestionItemType = {
@@ -89,7 +90,7 @@ const suggestionSample: Array<SuggestionItemType> = [
 const SearchBar = () => {
   const { Add, currentQueryString, filters } = useFilters();
   const [searchText, setSearchText] = useState<string>("");
-  const [isShowSearchBar, setShowSearchBar] = useState(false);
+  const [isShowSimilarKeywords, setShowSimilarKeywords] = useState(false);
   const [similarKeywords, setSimilarKeywords] = useState<
     Array<SuggestionItemType>
   >([]);
@@ -97,10 +98,12 @@ const SearchBar = () => {
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
     Add("keyword", suggestion.keyword.toLowerCase(), "single");
+    setShowSimilarKeywords(false);
   };
 
   const onSubmit = (e: any) => {
     Add("keyword", searchText, "single");
+    setShowSimilarKeywords(false);
     e.preventDefault();
   };
 
@@ -111,14 +114,14 @@ const SearchBar = () => {
   }, [currentQueryString]);
 
   useEffect(() => {
-    const getData = setTimeout(() => {
+    const getDataKeywords = setTimeout(() => {
       if (searchText.trim().length > 2) {
         GetSimilarKeywords();
       } else {
         setSimilarKeywords([]);
       }
-    }, 300);
-    return () => clearTimeout(getData);
+    }, 200);
+    return () => clearTimeout(getDataKeywords);
   }, [searchText]);
 
   useEffect(() => {
@@ -143,12 +146,12 @@ const SearchBar = () => {
     <Container>
       <Form onSubmit={onSubmit}>
         <SearchInput
-          onFocus={() => setShowSearchBar(true)}
-          onClick={() => setShowSearchBar(true)}
+          onFocus={() => setShowSimilarKeywords(true)}
+          onClick={() => setShowSimilarKeywords(true)}
           onBlur={() => {
             setTimeout(() => {
-              setShowSearchBar(false);
-            }, 100);
+              setShowSimilarKeywords(false);
+            }, 150);
           }}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
@@ -157,7 +160,7 @@ const SearchBar = () => {
           <img src={searchIcon.src} />
         </SearchBTN>
       </Form>
-      {similarKeywords.length > 0 && isShowSearchBar && (
+      {similarKeywords.length > 0 && isShowSimilarKeywords && (
         <Suggestion>
           {similarKeywords.map((suggestion) => (
             <SuggestionItem

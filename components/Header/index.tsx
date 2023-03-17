@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 const Container = styled.div`
   width: 100%;
   height: 120px;
-  background: white;
-  position: fixed;
+  background: var(--secondary-color);
+  position: relative;
   top: 0;
   left: 0;
   display: flex;
