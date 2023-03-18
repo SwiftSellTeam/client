@@ -1,4 +1,3 @@
-import useFilters from "@/hooks/useFilters";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -88,7 +87,6 @@ const suggestionSample: Array<SuggestionItemType> = [
 ];
 
 const SearchBar = () => {
-  const { Add, currentQueryString, filters, resetAllFilters } = useFilters();
   const [searchText, setSearchText] = useState<string>("");
   const [isShowSimilarKeywords, setShowSimilarKeywords] = useState(false);
   const [similarKeywords, setSimilarKeywords] = useState<
@@ -97,23 +95,19 @@ const SearchBar = () => {
   const router = useRouter();
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
-    resetAllFilters();
-    Add("keyword", suggestion.keyword.toLowerCase(), "single");
+    handleQuery(suggestion.keyword.toLowerCase());
     setShowSimilarKeywords(false);
   };
 
   const onSubmit = (e: any) => {
-    resetAllFilters();
-    Add("keyword", searchText, "single");
+    handleQuery(searchText);
     setShowSimilarKeywords(false);
     e.preventDefault();
   };
 
-  useEffect(() => {
-    if (currentQueryString != "?" && currentQueryString != "") {
-      router.push("/search" + currentQueryString);
-    }
-  }, [currentQueryString]);
+  const handleQuery = (newKeyword: string) => {
+    router.push(`/search?keyword=${newKeyword}`);
+  };
 
   useEffect(() => {
     const getDataKeywords = setTimeout(() => {
@@ -127,12 +121,12 @@ const SearchBar = () => {
   }, [searchText]);
 
   useEffect(() => {
-    if (filters.has("keyword")) {
-      setSearchText(filters.get("keyword")![0]);
+    if (router.query?.keyword) {
+      setSearchText(router.query.keyword.toString());
     } else {
       setSearchText("");
     }
-  }, [filters]);
+  }, [router.query]);
 
   const GetSimilarKeywords = () => {
     let results: SuggestionItemType[] = [];

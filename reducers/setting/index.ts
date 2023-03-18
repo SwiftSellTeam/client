@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SettingState {
-    $isDarkMode: boolean
+  $isDarkMode: boolean;
 }
 
 const initialState: SettingState = {
-    $isDarkMode: false,
-}
+  $isDarkMode: false,
+};
 
-const settingSlice = createSlice({
-    name: "setting",
-    initialState,
-    reducers: {
-        toggleDarkMode:(state) => {
-            state.$isDarkMode = !state.$isDarkMode
-        }
-    }
-})
+const settingSlice = createSlice({  
+  name: "setting",
+  initialState,
+  reducers: {
+    toggleDarkMode: (state) => {
+      state.$isDarkMode = !state.$isDarkMode;
+    },
+  },
+});
 
 export const { toggleDarkMode } = settingSlice.actions;
 export default settingSlice.reducer;

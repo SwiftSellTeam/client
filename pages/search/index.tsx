@@ -32,9 +32,7 @@ const Search = () => {
   }, [router.query]);
 
   useEffect(() => {
-    return () => {
-      resetAllFilters();
-    };
+    resetAllFilters();
   }, []);
 
   useEffect(() => {
@@ -46,11 +44,7 @@ const Search = () => {
   return (
     <PaddingContainer>
       <Container>
-        <Filters
-          filters={filters}
-          Add={Add}
-          Remove={Remove}
-        />
+        <Filters filters={filters} Add={Add} Remove={Remove} />
         <ProductsContainer width="80%">
           <TopFilters filters={filters} Add={Add} />
           {!loading && (
