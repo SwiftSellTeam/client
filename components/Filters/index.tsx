@@ -1,9 +1,8 @@
 import { FilterType } from "@/hooks/useFilters";
 import styled from "styled-components";
-import Filter, { FilterValueItemType } from "./filter";
+import Filter from "./filter";
 
 interface FiltersContainerPropsType {
-  $isLoading: boolean;
   Add: (slug: string, value: string, type: FilterType) => void;
   Remove: (slug: string, value: string) => void;
   filters: Map<string, string[]>;
@@ -62,7 +61,6 @@ const filterData = [
 ];
 
 const Filters: React.FC<FiltersContainerPropsType> = ({
-  $isLoading,
   Add,
   Remove,
   filters,

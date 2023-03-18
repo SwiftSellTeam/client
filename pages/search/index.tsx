@@ -50,7 +50,6 @@ const Search = () => {
           filters={filters}
           Add={Add}
           Remove={Remove}
-          $isLoading={loading}
         />
         <ProductsContainer width="80%">
           <TopFilters filters={filters} Add={Add} />
