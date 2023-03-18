@@ -16,7 +16,7 @@ const SearchInput = styled.input`
   border-radius: 4px;
   border: none;
   outline: none;
-  background: var(--secondary-color);
+  background: transparent;
   padding: 0px 15% 0px 10px;
   border: 1px solid rgba(23, 73, 77, 0.3);
   cursor: pointer;
@@ -62,7 +62,7 @@ const SearchBTN = styled.button`
   height: 35px;
   width: 5%;
   cursor: pointer;
-  background: var(--secondary-color);
+  background: transparent;
   border: none;
   outline: none;
   border-radius: 2px;

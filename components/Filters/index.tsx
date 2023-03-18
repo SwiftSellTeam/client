@@ -10,7 +10,6 @@ interface FiltersContainerPropsType {
 
 const FiltersContainer = styled.div`
   width: 20%;
-  padding: 20px;
   position: relative;
 `;
 

@@ -10,8 +10,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --primary-color: #17494D;
-  --secondary-color: rgba(255, 255, 255, 1);
+  --primary-color: red;
+  --secondary-color: white;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -91,7 +91,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-end-rgb));
+  background: var(--secondary-color);
 }
 
 a {

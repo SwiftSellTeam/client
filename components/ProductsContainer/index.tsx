@@ -16,7 +16,7 @@ const Container = styled.div<ContainerPropsType>`
   gap: 10px;
   display: flex;
   flex-flow: row wrap;
-  background: var(--secondary-color);
+  background: transparent;
   padding: 5px 10px;
 `;
 

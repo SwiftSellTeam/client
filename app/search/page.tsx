@@ -2,13 +2,12 @@ import styled from "styled-components";
 import PaddingContainer from "@/components/PaddingContainer";
 import Filters from "@/components/Filters";
 import useFilters from "@/hooks/useFilters";
-
+import { useEffect, useState } from "react";
 import ProductsContainer from "@/components/ProductsContainer";
 import ProductItem from "@/components/ProductItem";
 import Loading from "@/components/Loading";
 import TopFilters from "@/components/TopFilters";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 const Container = styled.div`
   width: 100%;

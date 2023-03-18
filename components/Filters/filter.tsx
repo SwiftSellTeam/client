@@ -26,7 +26,7 @@ const Container = styled.div<ContainerPropsType>`
   overflow: hidden;
   transition: height 0.25s ease;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 `;
 
 const Header = styled.div`
@@ -56,13 +56,23 @@ const ValueText = styled.p`
   padding-left: 10px;
   font-size: 14px;
   text-transform: capitalize;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
 `;
 
 const ShowMoreBTN = styled.button`
   bottom: 0;
   position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+  color: rgba(0, 0, 0, 0.8);
 `;
 
 const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
@@ -116,14 +126,14 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
   return (
     <>
       {values.length > 4 ? (
-        <Container customHeight={isShowMore ? "auto" : "185px"}>
+        <Container customHeight={isShowMore ? "auto" : "180px"}>
           <Header>{title}</Header>
           {values
             .slice(0, isShowMore ? undefined : 4)
             .map((value) => renderCheckboxItem(value))}
           {!isShowMore && (
             <ShowMoreBTN onClick={() => setShowMore(!isShowMore)}>
-              Show more
+              Thêm
             </ShowMoreBTN>
           )}
         </Container>
