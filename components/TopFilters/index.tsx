@@ -1,9 +1,13 @@
-import useFilters from "@/hooks/useFilters";
+import { FilterType } from "@/hooks/useFilters";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import nextIcon from "../../public/icon/next.png";
+
+interface Props {
+  Add: (slug: string, value: string, type: FilterType) => void;
+  filters: Map<string, string[]>;
+}
 
 interface FilterItemType {
   isSelected: boolean;
@@ -73,9 +77,7 @@ const PagingButton = styled.button`
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
-const TopFilters = () => {
-  const router = useRouter();
-  const { filters, Add, currentQueryString } = useFilters();
+const TopFilters: React.FC<Props> = ({ Add, filters }) => {
   const [sortBy, setSortBy] = useState<string>("");
 
   useEffect(() => {
@@ -85,12 +87,6 @@ const TopFilters = () => {
       setSortBy("relevancy");
     }
   }, [filters]);
-
-  useEffect(() => {
-    if (currentQueryString != "?" && currentQueryString != "") {
-      router.push(currentQueryString, undefined, { scroll: false });
-    }
-  }, [currentQueryString]);
 
   const handleSortBy = (value: "relevancy" | "ctime" | "sales") => {
     Add("sortBy", value, "single");

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { StarFilled } from "@ant-design/icons";
 import { Rate } from "antd";
 import { formatLongString } from "../../utils/functions";
+import { useRouter } from "next/router";
 
 interface Props {
   productName?: string;
@@ -70,12 +71,14 @@ const Price = styled.div`
 const ProductItem: React.FC<Props> = ({
   productName = "COMBO Dưỡng Da Ngày và Đêm Sắc Ngọc Khang gồm (Kem dưỡng da ban đêm 30g+ Kem dưỡng da ban ngày 30g)",
 }) => {
+  const router = useRouter();
   const [isHover, setHover] = useState<boolean>(false);
 
   return (
     <Container
       onClick={(e) => {
         if (e.target == e.currentTarget) {
+          router.push("/asd");
         }
       }}
       onMouseEnter={() => setHover(true)}

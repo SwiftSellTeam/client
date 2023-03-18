@@ -1,5 +1,4 @@
-import useFilters from "@/hooks/useFilters";
-import { useRouter } from "next/router";
+import { FilterType } from "@/hooks/useFilters";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -12,6 +11,9 @@ interface Props {
   title: string;
   slug: string;
   values: Array<string>;
+  Add: (slug: string, value: string, type: FilterType) => void;
+  Remove: (slug: string, value: string) => void;
+  filters: Map<string, string[]>;
 }
 
 interface ContainerPropsType {
@@ -75,9 +77,14 @@ const ShowMoreBTN = styled.button`
   color: rgba(0, 0, 0, 0.8);
 `;
 
-const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
-  const router = useRouter();
-  const { filters, Add, Remove, currentQueryString } = useFilters();
+const Filter: React.FC<Props> = ({
+  title = "My Title",
+  slug,
+  values,
+  Add,
+  Remove,
+  filters,
+}) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>([]);
   const [isShowMore, setShowMore] = useState<boolean>(false);
 
@@ -103,12 +110,6 @@ const Filter: React.FC<Props> = ({ title = "My Title", slug, values }) => {
       Remove(slug, value);
     }
   };
-
-  useEffect(() => {
-    if (currentQueryString != "?" && currentQueryString != "") {
-      router.push(currentQueryString, undefined, { scroll: false });
-    }
-  }, [currentQueryString]);
 
   const renderCheckboxItem = (value: string) => {
     return (

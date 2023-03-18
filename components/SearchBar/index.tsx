@@ -88,7 +88,7 @@ const suggestionSample: Array<SuggestionItemType> = [
 ];
 
 const SearchBar = () => {
-  const { Add, currentQueryString, filters } = useFilters();
+  const { Add, currentQueryString, filters, resetAllFilters } = useFilters();
   const [searchText, setSearchText] = useState<string>("");
   const [isShowSimilarKeywords, setShowSimilarKeywords] = useState(false);
   const [similarKeywords, setSimilarKeywords] = useState<
@@ -97,11 +97,13 @@ const SearchBar = () => {
   const router = useRouter();
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
+    resetAllFilters();
     Add("keyword", suggestion.keyword.toLowerCase(), "single");
     setShowSimilarKeywords(false);
   };
 
   const onSubmit = (e: any) => {
+    resetAllFilters();
     Add("keyword", searchText, "single");
     setShowSimilarKeywords(false);
     e.preventDefault();

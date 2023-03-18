@@ -10,7 +10,7 @@ type ConvertFiltersToUrlQueryType = (
   filters: Map<string, Array<string>>
 ) => string;
 
-type FilterType = "mutiple" | "single";
+export type FilterType = "mutiple" | "single";
 
 const useFilters = () => {
   const router = useRouter();
@@ -20,15 +20,18 @@ const useFilters = () => {
   const convertUrlQueryToFilters: ConvertUrlQueryToFiltersType = (query) => {
     let convertedFilters: Map<string, Array<string>> = new Map();
     for (const [key, value] of Object.entries(query)) {
-      let filterValues: Array<string> = [];
-      if (value) {
-        filterValues = value.toString().split(",");
-        if (!convertedFilters.has(key)) {
-          convertedFilters.set(key, filterValues);
-        } else {
-          filterValues.forEach((fValue) => {
-            convertedFilters.get(key)?.push(fValue);
-          });
+      if (key != "productName") {
+        console.log({ key });
+        let filterValues: Array<string> = [];
+        if (value) {
+          filterValues = value.toString().split(",");
+          if (!convertedFilters.has(key)) {
+            convertedFilters.set(key, filterValues);
+          } else {
+            filterValues.forEach((fValue) => {
+              convertedFilters.get(key)?.push(fValue);
+            });
+          }
         }
       }
     }
@@ -99,6 +102,7 @@ const useFilters = () => {
 
   const resetAllFilters = () => {
     setFilters(new Map());
+    setCurrentQueryString("");
   };
 
   useEffect(() => {

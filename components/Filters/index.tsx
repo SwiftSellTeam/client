@@ -1,11 +1,12 @@
-import useFilters from "@/hooks/useFilters";
-import { useEffect, useState } from "react";
+import { FilterType } from "@/hooks/useFilters";
 import styled from "styled-components";
 import Filter, { FilterValueItemType } from "./filter";
-import ReactLoading from "react-loading";
 
 interface FiltersContainerPropsType {
   $isLoading: boolean;
+  Add: (slug: string, value: string, type: FilterType) => void;
+  Remove: (slug: string, value: string) => void;
+  filters: Map<string, string[]>;
 }
 
 const FiltersContainer = styled.div`
@@ -36,17 +37,6 @@ const BlockPanel = styled.div`
   border-radius: 4px;
 `;
 
-const valuesSample: Array<FilterValueItemType> = [
-  { text: "test 1", isChecking: true },
-  { text: "test 2", isChecking: false },
-  { text: "test 3", isChecking: true },
-  { text: "test 4", isChecking: false },
-  { text: "test 5", isChecking: false },
-  { text: "test 6", isChecking: false },
-  { text: "test 7", isChecking: false },
-  { text: "test 8", isChecking: false },
-];
-
 const filterData = [
   {
     slug: "color",
@@ -71,24 +61,20 @@ const filterData = [
   },
 ];
 
-const valuesSample2: Array<FilterValueItemType> = [
-  { text: "test 1", isChecking: true },
-  { text: "test 2", isChecking: false },
-  { text: "test 3", isChecking: true },
-];
-
-const Filters: React.FC<FiltersContainerPropsType> = ({ $isLoading }) => {
-  const { filters } = useFilters();
-  const [filterArr, setFilterArr] = useState([]);
-
-  useEffect(() => {}, [filters]);
-
+const Filters: React.FC<FiltersContainerPropsType> = ({
+  $isLoading,
+  Add,
+  Remove,
+  filters,
+}) => {
   return (
     <FiltersContainer>
       <Header>Bộ lọc tìm kiếm</Header>
-   
       {filterData.map((filterDataItem) => (
         <Filter
+          filters={filters}
+          Add={Add}
+          Remove={Remove}
           key={filterDataItem.slug}
           title={filterDataItem.title}
           slug={filterDataItem.slug}

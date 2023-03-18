@@ -19,7 +19,8 @@ const Container = styled.div`
 
 const Search = () => {
   const router = useRouter();
-  const { filters } = useFilters();
+  const { filters, Add, Remove, currentQueryString } = useFilters();
+  const { resetAllFilters } = useFilters();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -30,12 +31,29 @@ const Search = () => {
     return () => clearTimeout(getData);
   }, [router.query]);
 
+  useEffect(() => {
+    return () => {
+      resetAllFilters();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentQueryString != "?" && currentQueryString != "") {
+      router.push(currentQueryString, undefined, { scroll: false });
+    }
+  }, [currentQueryString]);
+
   return (
     <PaddingContainer>
       <Container>
-        <Filters $isLoading={loading} />
+        <Filters
+          filters={filters}
+          Add={Add}
+          Remove={Remove}
+          $isLoading={loading}
+        />
         <ProductsContainer width="80%">
-          <TopFilters />
+          <TopFilters filters={filters} Add={Add} />
           {!loading && (
             <>
               {Array(20)
