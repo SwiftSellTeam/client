@@ -62,8 +62,8 @@ const PageNumber = styled.div`
 `;
 
 const PagingButton = styled.button`
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
   background: white;
   border: none;
   outline: none;
