@@ -84,7 +84,7 @@ const ProductItem: React.FC<Props> = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <ProductImage src="https://product.hstatic.net/1000039900/product/aa_hydro_algae_blue_cleansing_face_wash_gel_1_f0ab8f051e144732ab2d9a9d5e97f31a.jpg" />
+      <ProductImage src="https://ipfs.pantograph.app/ipfs/QmWJAhN996EBKeFoNapSTkwRhyvmQmSyc3wPAYysSsDGZi" />
       <ProductName>{formatLongString(productName, 40)}</ProductName>
       <Price>₫268.730</Price>
       <Rate
