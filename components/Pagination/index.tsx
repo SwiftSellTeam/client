@@ -5,12 +5,13 @@ import styled from "styled-components";
 import nextIcon from "../../public/icon/next.png";
 
 interface Props {
-  Add: (slug: string, value: string, type: FilterType) => void;
   filters: Map<string, string[]>;
   width?: string;
   height?: string;
   currentPage: number;
   totalPage: number;
+  onNext: () => void;
+  onPrev: () => void;
 }
 
 interface PagingPropsType {
@@ -52,21 +53,24 @@ const PagingButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.18);
   background: transparent;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 const Pagination: React.FC<Props> = ({
-  Add,
   width = "100%",
   height = "100%",
   currentPage = 1,
   totalPage = 1,
+  onNext,
+  onPrev,
 }) => {
   return (
     <Paging width={width} height={height}>
       <PageNumber>
-        <span style={{ color: "var(--primary-color)" }}>{currentPage}</span>/{totalPage}
+        <span style={{ color: "var(--primary-color)" }}>{currentPage}</span>/
+        {totalPage}
       </PageNumber>
-      <PagingButton onClick={() => Add("page", "1", "single")}>
+      <PagingButton disabled={currentPage == 1} onClick={() => onPrev()}>
         <Image
           style={{ transform: "rotate(180deg)" }}
           width={10}
@@ -75,7 +79,10 @@ const Pagination: React.FC<Props> = ({
           alt="back-icon"
         />
       </PagingButton>
-      <PagingButton onClick={() => Add("page", "2", "single")}>
+      <PagingButton
+        disabled={currentPage == totalPage}
+        onClick={() => onNext()}
+      >
         <Image width={10} height={10} src={nextIcon.src} alt="next-icon" />
       </PagingButton>
     </Paging>

@@ -1,0 +1,8 @@
+const CONST = {
+  REACT_QUERY_KEYS: {
+    GET_PRODUCTS: "GET_PRODUCTS",
+    GET_SUGGESTIONS: "GET_SUGGESTIONS",
+  },
+};
+
+export default CONST;

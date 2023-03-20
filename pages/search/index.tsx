@@ -79,6 +79,20 @@ const Search: React.FC<Props> = () => {
     }
   }, [getProductsResponse]);
 
+  const onNext = () => {
+    if (currentPage < totalPage) {
+      const nextPage = currentPage + 1;
+      Add("page", nextPage.toString(), "single");
+    }
+  };
+
+  const onPrev = () => {
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+      Add("page", prevPage.toString(), "single");
+    }
+  };
+
   return (
     <PaddingContainer>
       <Container>
@@ -90,7 +104,8 @@ const Search: React.FC<Props> = () => {
               currentPage={currentPage}
               totalPage={totalPage}
               width="30%"
-              Add={Add}
+              onNext={onNext}
+              onPrev={onPrev}
               filters={filters}
             />
           </Top>

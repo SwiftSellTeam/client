@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SuggestionItem from "./suggestionItem";
 import searchIcon from "../../public/icon/search.png";
+import useSuggestions from "@/hooks/useSuggestions";
 
 const Container = styled.div`
   width: 70%;
@@ -67,31 +68,17 @@ const SearchBTN = styled.button`
   border-radius: 2px;
 `;
 
-export type SuggestionItemType = {
+export interface SuggestionItemType {
   keyword: string;
-};
-
-const suggestionSample: Array<SuggestionItemType> = [
-  { keyword: "Thú nhồi bông" },
-  { keyword: "Điện thoại Xiaomi" },
-  { keyword: "Máy bán hàng" },
-  { keyword: "Bàn đánh bida" },
-  { keyword: "Cây thông Noel" },
-  { keyword: "Cây chà là" },
-  { keyword: "Cây kẹo mút" },
-  { keyword: "Nệm kimdan" },
-  { keyword: "Đồng hồ Apple Watch" },
-  { keyword: "Đồng hồ Samsung" },
-  { keyword: "Đồng hồ Nokia" },
-  { keyword: "Đồng hồ Rolex" },
-];
+  type: string;
+  url: string;
+}
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [isShowSimilarKeywords, setShowSimilarKeywords] = useState(false);
-  const [similarKeywords, setSimilarKeywords] = useState<
-    Array<SuggestionItemType>
-  >([]);
+  const { suggestions, getSuggestionsError, isLoadingSuggestions } =
+    useSuggestions(searchText, isShowSimilarKeywords);
   const router = useRouter();
 
   const handleOnClick = (suggestion: SuggestionItemType) => {
@@ -110,33 +97,12 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    const getDataKeywords = setTimeout(() => {
-      if (searchText.trim().length > 2) {
-        GetSimilarKeywords();
-      } else {
-        setSimilarKeywords([]);
-      }
-    }, 200);
-    return () => clearTimeout(getDataKeywords);
-  }, [searchText]);
-
-  useEffect(() => {
     if (router.query?.keyword) {
       setSearchText(router.query.keyword.toString());
     } else {
       setSearchText("");
     }
   }, [router.query]);
-
-  const GetSimilarKeywords = () => {
-    let results: SuggestionItemType[] = [];
-    suggestionSample.forEach((suggestion) => {
-      if (suggestion.keyword.toLowerCase().includes(searchText.toLowerCase())) {
-        results.push(suggestion);
-      }
-    });
-    setSimilarKeywords(results);
-  };
 
   return (
     <Container>
@@ -153,20 +119,23 @@ const SearchBar = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <SearchBTN>
-          <img src={searchIcon.src} />
+          <img alt="search-icon" src={searchIcon.src} />
         </SearchBTN>
       </Form>
-      {similarKeywords.length > 0 && isShowSimilarKeywords && (
-        <Suggestion>
-          {similarKeywords.map((suggestion) => (
-            <SuggestionItem
-              key={suggestion.keyword}
-              suggestion={suggestion}
-              onClick={handleOnClick}
-            />
-          ))}
-        </Suggestion>
-      )}
+      {suggestions &&
+        suggestions.length > 0 &&
+        !isLoadingSuggestions &&
+        isShowSimilarKeywords && (
+          <Suggestion>
+            {suggestions.map((suggestion: SuggestionItemType) => (
+              <SuggestionItem
+                key={suggestion.keyword}
+                suggestion={suggestion}
+                onClick={handleOnClick}
+              />
+            ))}
+          </Suggestion>
+        )}
     </Container>
   );
 };

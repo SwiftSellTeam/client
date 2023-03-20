@@ -71,6 +71,7 @@ const Price = styled.div`
   padding: 0px 10px;
   color: var(--primary-color);
   font-size: 15px;
+  flex: 1;
 `;
 
 const ProductItem: React.FC<Props> = ({ item }) => {

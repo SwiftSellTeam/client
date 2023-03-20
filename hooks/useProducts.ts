@@ -1,3 +1,4 @@
+import CONST from "@/utils/CONST";
 import axios from "axios";
 import { useQuery } from "react-query";
 
@@ -24,7 +25,7 @@ const getProducts = async ({ queryKey }: any) => {
 
 const useProducts = (query: GetProductsQueryType) => {
   const { data, isLoading, error } = useQuery(
-    ["GET_PRODUCT", query],
+    [CONST.REACT_QUERY_KEYS.GET_PRODUCTS, query],
     getProducts
   );
   return {
