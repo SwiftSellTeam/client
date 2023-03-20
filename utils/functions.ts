@@ -5,6 +5,8 @@ const formatLongString = (
   let formattedString = "";
   if (stringValue.length > desiredLength) {
     formattedString = stringValue.substring(0, desiredLength) + "...";
+  } else {
+    formattedString = stringValue;
   }
   return formattedString;
 };

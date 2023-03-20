@@ -7,7 +7,12 @@ import { formatLongString } from "../../utils/functions";
 import { useRouter } from "next/router";
 
 interface Props {
-  productName?: string;
+  item: {
+    name: string;
+    thumbnail_url: string;
+    price: string;
+    rating_average: number;
+  };
 }
 
 interface HoverButtonPropsType {
@@ -68,9 +73,7 @@ const Price = styled.div`
   font-size: 15px;
 `;
 
-const ProductItem: React.FC<Props> = ({
-  productName = "COMBO Dưỡng Da Ngày và Đêm Sắc Ngọc Khang gồm (Kem dưỡng da ban đêm 30g+ Kem dưỡng da ban ngày 30g)",
-}) => {
+const ProductItem: React.FC<Props> = ({ item }) => {
   const router = useRouter();
   const [isHover, setHover] = useState<boolean>(false);
 
@@ -84,9 +87,9 @@ const ProductItem: React.FC<Props> = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <ProductImage src="https://ipfs.pantograph.app/ipfs/QmWJAhN996EBKeFoNapSTkwRhyvmQmSyc3wPAYysSsDGZi" />
-      <ProductName>{formatLongString(productName, 40)}</ProductName>
-      <Price>₫268.730</Price>
+      <ProductImage src={item.thumbnail_url} />
+      <ProductName>{formatLongString(item.name, 40)}</ProductName>
+      <Price>₫{Number(item.price).toLocaleString()}</Price>
       <Rate
         disabled
         character={<StarFilled />}
@@ -97,7 +100,7 @@ const ProductItem: React.FC<Props> = ({
           flexFlow: "row wrap",
           width: "100%",
         }}
-        value={4}
+        value={Number(item.rating_average)}
       />
       <HoverButton isHover={isHover} onClick={() => {}}>
         Tìm sản phẩm tương tự

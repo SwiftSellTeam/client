@@ -106,7 +106,7 @@ const SearchBar = () => {
   };
 
   const handleQuery = (newKeyword: string) => {
-    router.push(`/search?keyword=${newKeyword}`);
+    router.push(`/search?keyword=${newKeyword}&page=1&sort=default`);
   };
 
   useEffect(() => {

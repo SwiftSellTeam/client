@@ -9,6 +9,9 @@ import Loading from "@/components/Loading";
 import TopFilters from "@/components/TopFilters";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import Pagination from "@/components/Pagination";
+import useProducts, { GetProductsQueryType } from "@/hooks/useProducts";
 
 const Container = styled.div`
   width: 100%;
@@ -17,19 +20,30 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const Search = () => {
+const Top = styled.div`
+  width: 100%;
+  height: 35px;
+  display: flex;
+  flex-flow: row wrap;
+`;
+
+interface Props {
+  data: string;
+}
+
+const Search: React.FC<Props> = () => {
   const router = useRouter();
+  const [query, setQuery] = useState<GetProductsQueryType>({
+    page: 1,
+    keyword: "",
+    sortBy: "default",
+  });
+  const { getProductsResponse, getProductsError, isLoadingProducts } =
+    useProducts(query);
   const { filters, Add, Remove, currentQueryString } = useFilters();
   const { resetAllFilters } = useFilters();
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const getData = setTimeout(() => {
-      setTimeout(() => setLoading(false), 100);
-    }, 500);
-    return () => clearTimeout(getData);
-  }, [router.query]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     resetAllFilters();
@@ -41,22 +55,53 @@ const Search = () => {
     }
   }, [currentQueryString]);
 
+  useEffect(() => {
+    let page = 1;
+    let keyword = "";
+    let sortBy = "default";
+    if (filters.has("page")) {
+      page = Number(filters.get("page")![0]);
+      setCurrentPage(Number(filters.get("page")![0]));
+    }
+    if (filters.has("keyword")) {
+      keyword = filters.get("keyword")![0];
+    }
+    if (filters.has("sort")) {
+      sortBy = filters.get("sort")![0];
+    }
+    console.log(page, keyword, sortBy);
+    setQuery({ page, keyword, sortBy });
+  }, [filters]);
+
+  useEffect(() => {
+    if (getProductsResponse) {
+      setTotalPage(getProductsResponse.totalPage);
+    }
+  }, [getProductsResponse]);
+
   return (
     <PaddingContainer>
       <Container>
         <Filters filters={filters} Add={Add} Remove={Remove} />
         <ProductsContainer width="80%">
-          <TopFilters filters={filters} Add={Add} />
-          {!loading && (
+          <Top style={{ marginBottom: "20px" }}>
+            <TopFilters width="70%" filters={filters} Add={Add} />
+            <Pagination
+              currentPage={currentPage}
+              totalPage={totalPage}
+              width="30%"
+              Add={Add}
+              filters={filters}
+            />
+          </Top>
+          {!isLoadingProducts && (
             <>
-              {Array(20)
-                .fill(0)
-                .map((_, i) => (
-                  <ProductItem key={i} />
-                ))}
+              {getProductsResponse?.products.map((item, i) => (
+                <ProductItem item={item} key={i} />
+              ))}
             </>
           )}
-          {loading && <Loading />}
+          {isLoadingProducts && <Loading />}
         </ProductsContainer>
       </Container>
     </PaddingContainer>

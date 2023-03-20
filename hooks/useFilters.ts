@@ -21,7 +21,6 @@ const useFilters = () => {
     let convertedFilters: Map<string, Array<string>> = new Map();
     for (const [key, value] of Object.entries(query)) {
       if (key != "productName") {
-        console.log({ key });
         let filterValues: Array<string> = [];
         if (value) {
           filterValues = value.toString().split(",");
