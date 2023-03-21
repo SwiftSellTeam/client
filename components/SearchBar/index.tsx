@@ -127,9 +127,9 @@ const SearchBar = () => {
         !isLoadingSuggestions &&
         isShowSimilarKeywords && (
           <Suggestion>
-            {suggestions.map((suggestion: SuggestionItemType) => (
+            {suggestions.map((suggestion: SuggestionItemType, i: number) => (
               <SuggestionItem
-                key={suggestion.keyword}
+                key={i}
                 suggestion={suggestion}
                 onClick={handleOnClick}
               />

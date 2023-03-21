@@ -1,20 +1,21 @@
+import ApiServiceBase from "@/pages/api/ApiServiceBase";
 import CONST from "@/utils/CONST";
 import axios from "axios";
 import { useQuery } from "react-query";
 
 export interface GetProductsQueryType {
   page: number;
-  keyword: string;
-  sortBy: string;
+  q: string;
+  sort: string;
+  limit: number;
 }
 
 const getProducts = async ({ queryKey }: any) => {
   const query: GetProductsQueryType = queryKey[1];
-  const response = await axios.get(
-    `https://tiki.vn/api/v2/products?limit=40&q=${query.keyword}&page=${query.page}&sort=${query.sortBy}`
-  );
-  const data = response.data;
-  const products: Array<any> = response.data.data;
+  const axios = new ApiServiceBase("https://tiki.vn/api/v2/");
+  const data: any = await axios.get("products", query);
+  const products: Array<any> = data.data;
+  console.log({ products });
   return {
     products,
     totalProducts: Number(data.paging.total),
@@ -26,7 +27,10 @@ const getProducts = async ({ queryKey }: any) => {
 const useProducts = (query: GetProductsQueryType) => {
   const { data, isLoading, error } = useQuery(
     [CONST.REACT_QUERY_KEYS.GET_PRODUCTS, query],
-    getProducts
+    getProducts,
+    {
+      enabled: query.q.trim().length > 0,
+    }
   );
   return {
     getProductsResponse: data,

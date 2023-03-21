@@ -58,6 +58,8 @@ const TopFilters: React.FC<Props> = ({
     if (filters.get("sort")) {
       setSortBy(filters.get("sort")![0]);
     }
+    console.log("ENV: ");
+    console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
   }, [filters]);
 
   const handleSortBy = (value: "default" | "newest" | "top_seller") => {

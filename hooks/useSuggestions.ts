@@ -1,13 +1,13 @@
+import ApiServiceBase from "@/pages/api/ApiServiceBase";
 import CONST from "@/utils/CONST";
 import axios from "axios";
 import { useQuery } from "react-query";
 
 const getSuggestions = async ({ queryKey }: any) => {
-  const keyword = queryKey[1];
-  const response = await axios.get(
-    `https://tiki.vn/api/v2/search/suggestion?q=${keyword}`
-  );
-  const suggestions = response.data.data;
+  const q = queryKey[1];
+  const axios = new ApiServiceBase("https://tiki.vn/api/v2/");
+  const data = await axios.get<any>("search/suggestion/", { q });
+  const suggestions = data.data;
   return suggestions;
 };
 

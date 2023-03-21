@@ -35,8 +35,9 @@ const Search: React.FC<Props> = () => {
   const router = useRouter();
   const [query, setQuery] = useState<GetProductsQueryType>({
     page: 1,
-    keyword: "",
-    sortBy: "default",
+    q: "",
+    sort: "default",
+    limit: 40,
   });
   const { getProductsResponse, getProductsError, isLoadingProducts } =
     useProducts(query);
@@ -58,7 +59,7 @@ const Search: React.FC<Props> = () => {
   useEffect(() => {
     let page = 1;
     let keyword = "";
-    let sortBy = "default";
+    let sort = "default";
     if (filters.has("page")) {
       page = Number(filters.get("page")![0]);
       setCurrentPage(Number(filters.get("page")![0]));
@@ -67,10 +68,10 @@ const Search: React.FC<Props> = () => {
       keyword = filters.get("keyword")![0];
     }
     if (filters.has("sort")) {
-      sortBy = filters.get("sort")![0];
+      sort = filters.get("sort")![0];
     }
-    console.log(page, keyword, sortBy);
-    setQuery({ page, keyword, sortBy });
+    console.log(page, keyword, sort);
+    setQuery({ page, q: keyword, sort, limit: 40 });
   }, [filters]);
 
   useEffect(() => {
