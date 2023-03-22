@@ -8,7 +8,7 @@ class ApiServiceBase {
     }
   }
 
-  async get<T>(path: string, queryParams: any = {}): Promise<T> {
+  async get<T>(path: string, queryParams: Record<string, any> = {}): Promise<T> {
     const fullPath = this.urlBase + path;
     const response = await axios.get(fullPath, {
       params: queryParams

@@ -71,7 +71,7 @@ const Search: React.FC<Props> = () => {
       sort = filters.get("sort")![0];
     }
     console.log(page, keyword, sort);
-    setQuery({ page, q: keyword, sort, limit: 40 });
+    setQuery({ ...query, page, q: keyword, sort });
   }, [filters]);
 
   useEffect(() => {

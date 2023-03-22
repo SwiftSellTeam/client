@@ -1,6 +1,5 @@
 import ApiServiceBase from "@/pages/api/ApiServiceBase";
 import CONST from "@/utils/CONST";
-import axios from "axios";
 import { useQuery } from "react-query";
 
 const getSuggestions = async ({ queryKey }: any) => {

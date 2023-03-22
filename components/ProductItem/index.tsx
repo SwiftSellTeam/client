@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StarFilled } from "@ant-design/icons";
 import { Rate } from "antd";
-import { formatLongString } from "../../utils/functions";
 import { useRouter } from "next/router";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { formatLongString } from "../../utils/functions";
 
 interface Props {
   item: {
@@ -12,6 +13,7 @@ interface Props {
     thumbnail_url: string;
     price: string;
     rating_average: number;
+    sku: string;
   };
 }
 
@@ -88,7 +90,12 @@ const ProductItem: React.FC<Props> = ({ item }) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <ProductImage src={item.thumbnail_url} />
+      <LazyLoadImage
+        effect="blur"
+        width={"100%"}
+        src={item.thumbnail_url}
+        alt={`product-image-${item.sku}`}
+      />
       <ProductName>{formatLongString(item.name, 40)}</ProductName>
       <Price>₫{Number(item.price).toLocaleString()}</Price>
       <Rate
